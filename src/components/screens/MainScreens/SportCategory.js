@@ -7,6 +7,7 @@ import LocationIcon from '../../../assets/svg/location_icon';
 import FilterIcon from '../../../assets/svg/filter_btn';
 import BackIcon from '../../../assets/svg/category_back_icon';
 import CloseIcon from '../../../assets/svg/popup_close_icon2';
+import MarkerIcon from '../../../assets/svg/marker';
 import {AuthContext} from "../../AuthContext/context";
 import MapView, {Marker} from 'react-native-maps';
 
@@ -67,6 +68,7 @@ function SportCategory (props) {
 
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [show_map, setShowMap] = useState(false);
+    const [show_event_places_popup, setShowEventPlacesPopup] = useState(false);
 
     const [sport_category_items, setSportCategoryItems] = useState([
         {
@@ -108,8 +110,8 @@ function SportCategory (props) {
     ])
 
 
-    const redirectToMapScreen = () => {
-        props.navigation.navigate('MapScreen')
+    const redirectToSportPlaceSinglePageScreen = () => {
+        props.navigation.navigate('SportPlaceSinglePageScreen')
     }
 
     const colorScheme = useColorScheme();
@@ -146,6 +148,9 @@ function SportCategory (props) {
                             return(
                                 <TouchableOpacity key={index}
                                                   style={styles.sport_category_item}
+                                                  onPress={() => {
+                                                      redirectToSportPlaceSinglePageScreen()
+                                                  }}
                                 >
                                     <View style={styles.sport_category_item_img}>
                                         <Image source={item.img} style={styles.sport_category_item_img_child} />
@@ -201,15 +206,62 @@ function SportCategory (props) {
                             }}
                         >
                             <Marker
-                                coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-                                title="My Marker"
-                                description="Some description"
-                            />
+                                coordinate={{ latitude: 40.4637, longitude: -3.7492}}
+                                // title="My Marker"
+                                // description="Some description"
+                                onPress={() => {
+                                    // setShowMap(false)
+                                    setShowEventPlacesPopup(true)
+                                }}
+                                >
+                                    <MarkerIcon/>
+                            </Marker>
                         </MapView>
 
                     </View>
 
 
+                </View>
+            }
+            {show_event_places_popup &&
+                <View style={styles.show_event_places_popup}>
+                    <TouchableOpacity
+                        style={styles.show_event_places_popup_close_icon}
+                        onPress={() => {
+                            setShowEventPlacesPopup(false)
+                        }}
+                    >
+                        <CloseIcon/>
+                    </TouchableOpacity>
+                    <View style={styles.show_event_places_popup_wrapper}>
+                        <ScrollView style={styles.show_event_places_popup_main_part}>
+                                {sport_category_items.map((item, index) => {
+                                    return(
+                                        <TouchableOpacity key={index}
+                                                          style={styles.show_event_places_popup_item}
+                                                          onPress={() => {
+                                                              redirectToSportPlaceSinglePageScreen()
+                                                          }}
+                                        >
+                                            <View style={styles.show_event_places_popup_item_img}>
+                                                <Image source={item.img} style={styles.show_event_places_popup_item_img_child} />
+                                            </View>
+                                            <View style={styles.show_event_places_popup_item_info_box}>
+                                                <Text style={styles.show_event_places_popup_item_info_box_name}>{item.name}</Text>
+                                                <Text style={styles.show_event_places_popup_item_info_box_players_count}>{item.players}</Text>
+                                                <View style={styles.show_event_places_popup_item_info_box_address_price_info}>
+                                                    <Text style={styles.show_event_places_popup_item_info_box_address}>{item.address}</Text>
+                                                    <Text style={styles.show_event_places_popup_item_info_box_price_info}>{item.price}</Text>
+                                                </View>
+                                            </View>
+                                        </TouchableOpacity>
+
+                                    )
+
+                                })}
+                        </ScrollView>
+
+                    </View>
                 </View>
             }
 
@@ -386,6 +438,99 @@ const styles = StyleSheet.create({
         right: 24,
         top: 55,
         zIndex: 999,
+    },
+    show_event_places_popup: {
+        backgroundColor:  'rgba(157, 148, 148, 0.69)',
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 999,
+        zIndex: 999999,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        left: 0,
+        bottom: 0,
+        alignSelf: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    show_event_places_popup_wrapper: {
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
+        zIndex: 999,
+        shadowColor: 'rgb(0, 0, 0)',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 34,
+        elevation: 999,
+        backgroundColor: '#F8F8F8',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        maxHeight: 715,
+        height: '100%',
+        paddingHorizontal: 16,
+        paddingTop: 43,
 
-    }
+    },
+
+    show_event_places_popup_main_part: {
+        flex: 1,
+        width: '100%',
+    },
+    show_event_places_popup_item: {
+        width: '100%',
+        marginBottom: 28,
+    },
+    show_event_places_popup_item_img: {
+        width: '100%',
+        height: 150,
+        marginBottom: 10,
+        borderRadius: 17,
+        overflow: 'hidden',
+    },
+    show_event_places_popup_item_img_child: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
+    },
+    show_event_places_popup_item_info_box: {
+        width: '100%',
+    },
+    show_event_places_popup_item_info_box_name: {
+        fontWeight: '700',
+        fontSize: 18,
+        color: '#000000',
+    },
+    show_event_places_popup_item_info_box_players_count: {
+        fontWeight: '700',
+        fontSize: 14,
+        color: '#5F5F5F',
+        marginBottom: 5
+    },
+    show_event_places_popup_item_info_box_address_price_info: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    show_event_places_popup_item_info_box_address: {
+        fontWeight: '700',
+        fontSize: 14,
+        color: '#5F5F5F',
+    },
+
+    show_event_places_popup_item_info_box_price_info: {
+        fontWeight: '700',
+        fontSize: 16,
+        color: '#5F5F5F',
+    },
+
+    show_event_places_popup_close_icon: {
+        position: 'absolute',
+        top: 55,
+        right: 24,
+        zIndex: 99,
+    },
 });

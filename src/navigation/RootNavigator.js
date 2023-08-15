@@ -18,6 +18,7 @@ import LoginScreen from '../components/screens/AuthScreens/Login'
 import ForgetPasswordScreen from '../components/screens/AuthScreens/ForgetPassword'
 import HomeScreen from '../components/screens/MainScreens/HomeScreen'
 import SportCategoryScreen from "../components/screens/MainScreens/SportCategory";
+import SportPlaceSinglePageScreen from "../components/screens/MainScreens/SportPlaceSinglePage";
 
 
 const RootNavigator = () => {
@@ -83,7 +84,14 @@ const RootNavigator = () => {
                             })}
                         />
 
-
+                        <Stack.Screen
+                            name="SportPlaceSinglePageScreen"
+                            component={SportPlaceSinglePageScreen}
+                            options={({route}) => ({
+                                tabBarButton: () => null,
+                                tabBarStyle: {display: 'none'},
+                            })}
+                        />
 
                     </Stack.Navigator>
 
