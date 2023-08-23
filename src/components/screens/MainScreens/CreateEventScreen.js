@@ -218,8 +218,7 @@ function SportPlaceSinglePage (props) {
                 </View>
 
             {show_event_success_popup &&
-                <View style={styles.show_event_success_popup}>
-                    <ImageBackground source={require('../../../assets/images/success_popup_img.png')} style={styles.show_event_success_popup_wrapper}>
+                    <ImageBackground source={require('../../../assets/images/success_popup_img.png')} style={styles.show_event_success_popup}>
                         <TouchableOpacity
                             style={styles.show_event_success_popup_close_btn}
                             onPress={() => {
@@ -232,15 +231,11 @@ function SportPlaceSinglePage (props) {
                             <SuccessIcon/>
                         </View>
                         <Text style={styles.show_event_success_popup_info}>
-                            ¡Éxito!
-                        </Text>
-                        <Text style={styles.show_event_success_popup_info}>
-                            Que tengas un
-                            buen juego!
+                            ¡Se ha realizado con éxito!
+                            Disfrute del juego
                         </Text>
 
                     </ImageBackground>
-                </View>
             }
         </SafeAreaView>
     );
@@ -402,14 +397,16 @@ const styles = StyleSheet.create({
         elevation: 999,
         zIndex: 999999,
         width: '100%',
-        height: '100%',
+        height: windowHeight,
         position: 'absolute',
         left: 0,
         bottom: 0,
         alignSelf: 'center',
         alignItems: 'center',
-        justifyContent: 'center',
-        resizeMode: 'cover'
+        // justifyContent: 'center',
+        resizeMode: 'cover',
+        paddingTop: 170,
+
     },
     show_event_success_popup_wrapper: {
         width: '100%',
@@ -420,7 +417,7 @@ const styles = StyleSheet.create({
         position: 'relative'
     },
     show_event_success_popup_img: {
-        marginBottom: 20,
+        marginBottom: 10,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',

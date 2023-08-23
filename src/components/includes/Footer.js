@@ -45,6 +45,9 @@ function Footer (props) {
     const redirectToHomeScreen = () => {
         props.navigation.navigate('HomeScreen')
     }
+    const redirectToEventScreen = () => {
+        props.navigation.navigate('EventScreen')
+    }
 
 
     return (
@@ -78,7 +81,7 @@ function Footer (props) {
 
                     </TouchableOpacity>
                     :
-                    <TouchableOpacity style={styles.footer_item}>
+                    <TouchableOpacity style={styles.footer_item} onPress={() => redirectToEventScreen()}>
                         <View style={styles.footer_item_icon}>
                             <FooterIcon2NonActive/>
                         </View>

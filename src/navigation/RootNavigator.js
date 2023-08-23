@@ -20,6 +20,7 @@ import HomeScreen from '../components/screens/MainScreens/HomeScreen'
 import SportCategoryScreen from "../components/screens/MainScreens/SportCategory";
 import SportPlaceSinglePageScreen from "../components/screens/MainScreens/SportPlaceSinglePage";
 import CreateEventScreen from "../components/screens/MainScreens/CreateEventScreen";
+import EventScreen from "../components/screens/MainScreens/EventScreen";
 
 
 const RootNavigator = () => {
@@ -96,6 +97,14 @@ const RootNavigator = () => {
                         <Stack.Screen
                             name="CreateEventScreen"
                             component={CreateEventScreen}
+                            options={({route}) => ({
+                                tabBarButton: () => null,
+                                tabBarStyle: {display: 'none'},
+                            })}
+                        />
+                        <Stack.Screen
+                            name="EventScreen"
+                            component={EventScreen}
                             options={({route}) => ({
                                 tabBarButton: () => null,
                                 tabBarStyle: {display: 'none'},
