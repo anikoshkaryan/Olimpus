@@ -136,8 +136,8 @@ function SportPlaceSinglePage (props) {
 
     ])
 
-    const redirectToMapScreen = () => {
-        props.navigation.navigate('MapScreen')
+    const redirectToCreateEventScreen = () => {
+        props.navigation.navigate('CreateEventScreen')
     }
 
     const colorScheme = useColorScheme();
@@ -314,7 +314,12 @@ function SportPlaceSinglePage (props) {
                             <TouchableOpacity style={styles.show_select_date_popup_footer_reserve_btn}>
                                 <Text style={styles.show_select_date_popup_footer_reserve_btn_text}>Reservar</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.show_select_date_popup_footer_create_an_event_btn}>
+                            <TouchableOpacity
+                                style={styles.show_select_date_popup_footer_create_an_event_btn}
+                                onPress={() => {
+                                    redirectToCreateEventScreen()
+                                }}
+                            >
                                 <Text style={styles.show_select_date_popup_footer_create_an_event_btn_text}>Crear un comando</Text>
                             </TouchableOpacity>
                         </View>
