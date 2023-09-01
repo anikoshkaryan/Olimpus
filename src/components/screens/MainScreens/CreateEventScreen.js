@@ -92,7 +92,9 @@ function SportPlaceSinglePage (props) {
         <SafeAreaView style={styles.container}>
                 <StatusBar style={{position: 'absolute', top: 0}} barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}  backgroundColor='#F8F8F8' color='#000000' hidden = {false}  translucent = {true}/>
                 <View style={styles.create_event_header_wrapper}>
-                    <TouchableOpacity style={styles.create_event_header_back_btn}>
+                    <TouchableOpacity style={styles.create_event_header_back_btn} onPress={() => {
+                        props.navigation.goBack()
+                    }}>
                         <BackIcon/>
                     </TouchableOpacity>
                     <Text style={styles.create_event_header_title}>Crear un comando</Text>
